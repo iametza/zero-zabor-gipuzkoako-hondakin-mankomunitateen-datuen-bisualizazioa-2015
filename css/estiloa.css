@@ -1,3 +1,8 @@
+a {
+    color: #e50000;
+    text-decoration: none;
+}
+
 .unitateak:hover {
     fill: #d50000;
 }
@@ -73,7 +78,8 @@
 .legenda {
     left: 500px;
     position: absolute;
-    top: 340px;
+    top: 395px;
+    font-size: 14px;
 }
 
 .legenda .kolorea {
@@ -81,4 +87,22 @@
     height: 15px;
     margin-right: 5px;
     width: 15px;
+}
+
+#kredituak {
+	color: #333;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 12px;
+	left: 8px;
+	position: absolute;
+	top: 510px;
+	width: 250px;
+}
+
+#mapa-argia-logoa {
+	width: 100px;
+}
+#mapa-iametza-logoa {
+	width: 100px;
+    margin-left: 15px;
 }
