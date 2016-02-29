@@ -95,6 +95,10 @@
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
 
+        if (error) {
+            return console.error(error);
+        }
+        
         d3.csv(herrialdeak[hautatutako_herrialdea].datuak2, function(error, datuak2) {
 
             if (error) {
@@ -133,13 +137,9 @@
                     .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
                     .enter().append("path")
                     .attr("fill", function(d) {
-
                         if (d.properties.datuak) {
-                            console.log(d.properties.datuak.errefusa);
                             if (!d.properties.datuak.errefusa) {
-                                console.log("sartu da");
                                 return "#FCDC72";
-
                             } else {
                                 return "#ffffff";
                             }
@@ -196,13 +196,10 @@
                     .attr("d", path)
                     .attr("class", "kanpo-mugak");
 
-                console.log(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features);
                 var radius = d3.scale.sqrt()
                     .domain([0,
                             d3.max(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features,
                                    function(d) {
-                                       console.log(d.properties.hondakinak);
-                                       console.log(d.properties.datuak.errefusa_guztira);
                                        return d.properties.datuak.errefusa_guztira;
                                    }
                             )
