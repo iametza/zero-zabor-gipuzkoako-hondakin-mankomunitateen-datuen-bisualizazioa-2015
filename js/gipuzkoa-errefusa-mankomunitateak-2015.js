@@ -135,46 +135,15 @@
                     .attr("fill", function(d) {
 
                         if (d.properties.datuak) {
-
-                            if (d.properties.datuak.errefusa) {
-
-                                if (d.properties.datuak.errefusa <= 100) {
-
-                                    return "#DCDCDC";
-
-                                } else if (d.properties.datuak.errefusa > 100 && d.properties.datuak.errefusa <= 150) {
-
-                                    return "#989898";
-
-                                } else if (d.properties.datuak.errefusa > 150 && d.properties.datuak.errefusa <= 200) {
-
-                                    return "#747474";
-
-                                } else if (d.properties.datuak.errefusa > 200 && d.properties.datuak.errefusa <= 250) {
-
-                                    return "#565656";
-
-                                } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
-
-                                    return "#343434";
-
-                                } else if (d.properties.datuak.errefusa > 300) {
-
-                                    return "#222";
-
-                                }
-
-                            } else {
-
+                            console.log(d.properties.datuak.errefusa);
+                            if (!d.properties.datuak.errefusa) {
+                                console.log("sartu da");
                                 return "#FCDC72";
 
+                            } else {
+                                return "#ffffff";
                             }
-
                         }
-
-                        // Daturik ez badago...
-                        return "#ffffff";
-
                     })
                     .attr("class", "unitateak")
                     .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
@@ -250,6 +219,50 @@
                     })
                     .attr("r", function(d) {
                         return radius(d.properties.datuak.errefusa_guztira);
+                    })
+                    .attr("fill", function(d) {
+
+                        if (d.properties.datuak) {
+
+                            if (d.properties.datuak.errefusa) {
+
+                                if (d.properties.datuak.errefusa <= 100) {
+
+                                    return "#DCDCDC";
+
+                                } else if (d.properties.datuak.errefusa > 100 && d.properties.datuak.errefusa <= 150) {
+
+                                    return "#989898";
+
+                                } else if (d.properties.datuak.errefusa > 150 && d.properties.datuak.errefusa <= 200) {
+
+                                    return "#747474";
+
+                                } else if (d.properties.datuak.errefusa > 200 && d.properties.datuak.errefusa <= 250) {
+
+                                    return "#565656";
+
+                                } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
+
+                                    return "#343434";
+
+                                } else if (d.properties.datuak.errefusa > 300) {
+
+                                    return "#222";
+
+                                }
+
+                            } else {
+
+                                return "#FCDC72";
+
+                            }
+
+                        }
+
+                        // Daturik ez badago...
+                        return "#ffffff";
+
                     });
             });
 

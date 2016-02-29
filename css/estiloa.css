@@ -2,7 +2,9 @@ a {
     color: #e50000;
     text-decoration: none;
 }
-
+body {
+    background-color: #eeeeee;
+}
 .unitateak:hover {
     fill: #d50000;
 }
