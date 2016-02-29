@@ -1,7 +1,11 @@
 (function() {
 
     function onMouseOut(d) {
-        $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
+        if (d.properties.datuak.errefusa) {
+            $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
+        } else {
+            $("#unitatea_" + d.properties.ud_kodea).css("fill", "#FCDC72");
+        }
     }
 
     function onMouseOver(d) {
@@ -27,6 +31,7 @@
         } else if(d.properties.datuak.errefusa) {
 
             $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
+            $(".datuak-taula .errefusaren-ehunekoa").text("%" + d.properties.datuak.errefusaren_ehunekoa);
 
             $(".daturik-ez").hide();
 
@@ -133,6 +138,8 @@
         .attr("width", width)
         .attr("height", height);
 
+    var errefusa_guztira = 0;
+
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
 
@@ -153,6 +160,12 @@
                     return console.error(error);
                 }
 
+                datuak2.forEach(function(d, i) {
+                    if (d.errefusa_guztira) {
+                        errefusa_guztira = errefusa_guztira + parseInt(d.errefusa_guztira, 10);
+                    }
+                });
+
                 // Emaitzak eta topoJSON-a bateratzeko ideia hemendik hartu dut, behar bada badago modu hobe bat.
                 // http://stackoverflow.com/questions/22994316/how-to-reference-csv-alongside-geojson-for-d3-rollover
 
@@ -167,6 +180,7 @@
 
                         if (d.mankomunitatea === e.properties.hondakinak) {
                             e.properties.datuak = d;
+                            e.properties.datuak.errefusaren_ehunekoa = (100 * d.errefusa_guztira / errefusa_guztira).toFixed(1);
                         }
 
                     });
