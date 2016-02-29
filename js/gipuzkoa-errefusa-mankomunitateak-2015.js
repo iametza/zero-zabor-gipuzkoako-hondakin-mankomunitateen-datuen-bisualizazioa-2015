@@ -151,9 +151,13 @@
 
                                 return "#565656";
 
-                            } else if (d.properties.datuak.errefusa > 250) {
+                            } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
 
                                 return "#343434";
+
+                            } else if (d.properties.datuak.errefusa > 300) {
+
+                                return "#222";
 
                             }
 
