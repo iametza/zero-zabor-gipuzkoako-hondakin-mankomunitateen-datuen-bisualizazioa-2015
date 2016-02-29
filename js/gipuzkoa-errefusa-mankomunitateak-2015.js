@@ -11,7 +11,8 @@
     var herrialdeak = {
         "gipuzkoa": {
             kodea: 20,
-            datuak: "datuak/gipuzkoa-birziklapena-mankomunitateak-2015.csv",
+            datuak1: "datuak/gipuzkoa-birziklapena-mankomunitateak-2014.csv",
+            datuak2: "datuak/gipuzkoa-birziklapena-mankomunitateak-2015.csv",
             json_izena: "hondakin-mankomunitateak-gipuzkoa",
             topoJSON: "topoJSON/hondakin-mankomunitateak-gipuzkoa.json",
             proiekzioa: {
@@ -92,137 +93,141 @@
         .attr("height", height);
 
     // Hautatutako herrialdeko datuak irakurri.
-    d3.csv(herrialdeak[hautatutako_herrialdea].datuak, function(error, datuak) {
-
-        if (error) {
-            return console.error(error);
-        }
-
-        // Hautatutako herrialdearen datu geografikoak irakurri dagokion topoJSONetik.
-        d3.json(herrialdeak[hautatutako_herrialdea].topoJSON, function(error, eh) {
+    d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
+        
+        d3.csv(herrialdeak[hautatutako_herrialdea].datuak2, function(error, datuak2) {
 
             if (error) {
                 return console.error(error);
             }
 
-            // Emaitzak eta topoJSON-a bateratzeko ideia hemendik hartu dut, behar bada badago modu hobe bat.
-            // http://stackoverflow.com/questions/22994316/how-to-reference-csv-alongside-geojson-for-d3-rollover
+            // Hautatutako herrialdearen datu geografikoak irakurri dagokion topoJSONetik.
+            d3.json(herrialdeak[hautatutako_herrialdea].topoJSON, function(error, eh) {
 
-            // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
-            // d: Emaitzen arrayko mankomunitate bakoitzaren propietateak biltzen dituen objektua.
-            // i: indizea
-            datuak.forEach(function(d, i) {
+                if (error) {
+                    return console.error(error);
+                }
 
-                // e: Datu geografikoetako mankomunitatearen propietateak
-                // j: indizea
-                topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
+                // Emaitzak eta topoJSON-a bateratzeko ideia hemendik hartu dut, behar bada badago modu hobe bat.
+                // http://stackoverflow.com/questions/22994316/how-to-reference-csv-alongside-geojson-for-d3-rollover
 
-                    if (d.mankomunitatea === e.properties.hondakinak) {
-                        e.properties.datuak = d;
-                    }
+                // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
+                // d: Emaitzen arrayko mankomunitate bakoitzaren propietateak biltzen dituen objektua.
+                // i: indizea
+                datuak2.forEach(function(d, i) {
+
+                    // e: Datu geografikoetako mankomunitatearen propietateak
+                    // j: indizea
+                    topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
+
+                        if (d.mankomunitatea === e.properties.hondakinak) {
+                            e.properties.datuak = d;
+                        }
+
+                    });
 
                 });
 
-            });
+                // Udalerri guztiak.
+                svg.selectAll(".unitateak")
+                    .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
+                    .enter().append("path")
+                    .attr("fill", function(d) {
 
-            // Udalerri guztiak.
-            svg.selectAll(".unitateak")
-                .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
-                .enter().append("path")
-                .attr("fill", function(d) {
+                        if (d.properties.datuak) {
 
-                    if (d.properties.datuak) {
+                            if (d.properties.datuak.errefusa) {
 
-                        if (d.properties.datuak.errefusa) {
+                                if (d.properties.datuak.errefusa <= 100) {
 
-                            if (d.properties.datuak.errefusa <= 100) {
+                                    return "#DCDCDC";
 
-                                return "#DCDCDC";
+                                } else if (d.properties.datuak.errefusa > 100 && d.properties.datuak.errefusa <= 150) {
 
-                            } else if (d.properties.datuak.errefusa > 100 && d.properties.datuak.errefusa <= 150) {
+                                    return "#989898";
 
-                                return "#989898";
+                                } else if (d.properties.datuak.errefusa > 150 && d.properties.datuak.errefusa <= 200) {
 
-                            } else if (d.properties.datuak.errefusa > 150 && d.properties.datuak.errefusa <= 200) {
+                                    return "#747474";
 
-                                return "#747474";
+                                } else if (d.properties.datuak.errefusa > 200 && d.properties.datuak.errefusa <= 250) {
 
-                            } else if (d.properties.datuak.errefusa > 200 && d.properties.datuak.errefusa <= 250) {
+                                    return "#565656";
 
-                                return "#565656";
+                                } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
 
-                            } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
+                                    return "#343434";
 
-                                return "#343434";
+                                } else if (d.properties.datuak.errefusa > 300) {
 
-                            } else if (d.properties.datuak.errefusa > 300) {
+                                    return "#222";
 
-                                return "#222";
+                                }
+
+                            } else {
+
+                                return "#FCDC72";
 
                             }
 
-                        } else {
+                        }
 
-                            return "#FCDC72";
+                        // Daturik ez badago...
+                        return "#ffffff";
+
+                    })
+                    .attr("class", "unitateak")
+                    .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
+                    .attr("d", path)
+                    .on("mouseover", function(d) {
+
+                        $(".hasierako-mezua").hide();
+
+                        // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
+                        // ez badauka ud_iz_e erabili.
+                        if (d.properties.iz_euskal) {
+
+                            $("#unitatea-izena").text(d.properties.hondakinak);
 
                         }
 
-                    }
+                        if (!d.properties.datuak) {
 
-                    // Daturik ez badago...
-                    return "#ffffff";
+                            $(".datuak-taula").hide();
 
-                })
-                .attr("class", "unitateak")
-                .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
-                .attr("d", path)
-                .on("mouseover", function(d) {
+                            $(".daturik-ez").hide();
 
-                    $(".hasierako-mezua").hide();
+                        } else if(d.properties.datuak.errefusa) {
 
-                    // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
-                    // ez badauka ud_iz_e erabili.
-                    if (d.properties.iz_euskal) {
+                            $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
 
-                        $("#unitatea-izena").text(d.properties.hondakinak);
+                            $(".daturik-ez").hide();
 
-                    }
+                            $(".datuak-taula").show();
 
-                    if (!d.properties.datuak) {
+                        } else {
 
-                        $(".datuak-taula").hide();
+                            $(".datuak-taula").hide();
 
-                        $(".daturik-ez").hide();
+                            $(".daturik-ez").show();
 
-                    } else if(d.properties.datuak.errefusa) {
+                        }
 
-                        $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
+                    });
 
-                        $(".daturik-ez").hide();
+                // Eskualdeen arteko mugak (a !== b)
+                svg.append("path")
+                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
+                    .attr("d", path)
+                    .attr("class", "eskualde-mugak");
 
-                        $(".datuak-taula").show();
+                // Kanpo-mugak (a === b)
+                svg.append("path")
+                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a === b; }))
+                    .attr("d", path)
+                    .attr("class", "kanpo-mugak");
 
-                    } else {
-
-                        $(".datuak-taula").hide();
-
-                        $(".daturik-ez").show();
-
-                    }
-
-                });
-
-            // Eskualdeen arteko mugak (a !== b)
-            svg.append("path")
-                .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
-                .attr("d", path)
-                .attr("class", "eskualde-mugak");
-
-            // Kanpo-mugak (a === b)
-            svg.append("path")
-                .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a === b; }))
-                .attr("d", path)
-                .attr("class", "kanpo-mugak");
+            });
 
         });
 
