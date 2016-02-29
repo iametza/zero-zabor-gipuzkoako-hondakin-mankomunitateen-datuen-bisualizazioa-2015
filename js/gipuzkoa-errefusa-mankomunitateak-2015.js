@@ -1,5 +1,36 @@
 (function() {
 
+    function eskuratuKolorea(errefusa) {
+
+        var kolorea = "";
+
+        if (errefusa <= 100) {
+
+            return "#DCDCDC";
+
+        } else if (errefusa > 100 && errefusa <= 150) {
+
+            return "#989898";
+
+        } else if (errefusa > 150 && errefusa <= 200) {
+
+            return "#747474";
+
+        } else if (errefusa > 200 && errefusa <= 250) {
+
+            return "#565656";
+
+        } else if (errefusa > 250 && errefusa <= 300) {
+
+            return "#343434";
+
+        } else if (errefusa > 300) {
+
+            return "#222";
+
+        }
+    }
+
     function onMouseOut(d) {
         if (d.properties.datuak2.errefusa) {
             $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
@@ -17,9 +48,17 @@
         // Grafikoa eguneratu
         grafikoa.load({
             columns: [
-                ['errefusa_guztira', d.properties.datuak1.errefusa, d.properties.datuak2.errefusa]
+                ["2014", d.properties.datuak1.errefusa],
+                ["2015", d.properties.datuak2.errefusa]
             ]
         });
+
+        // Barrei dagokien kolorea eman.
+        grafikoa.data.colors({
+            "2014": eskuratuKolorea(d.properties.datuak1.errefusa),
+            "2015": eskuratuKolorea(d.properties.datuak2.errefusa)
+        });
+
         // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
         // ez badauka ud_iz_e erabili.
         if (d.properties.iz_euskal) {
@@ -153,25 +192,28 @@
             width: 150
         },
         data: {
-            x: "urtea",
-            y: "errefusa_guztira",
             columns: [
-                ["urtea", "2014", "2015"],
-                ["errefusa_guztira", 0, 0]
+                ["2014", 0],
+                ["2015", 0]
             ],
-            type: 'bar'
-        },
-        bar: {
-            width: {
-                ratio: 0.9
-            }
+            type: 'bar',
+            labels: true,
         },
         legend: {
             show: false
         },
+        tooltip: {
+            show: false
+        },
+        interaction: {
+            enabled: false
+        },
         axis: {
+            x: {
+                show: false
+            },
             y: {
-                max: 353,   // Txingudi 2014
+                max: 353,   // Txingudi 2014. Zuzenean jarri ordez hobe litzateke datuetaik ateratzea.
                 show: false
             }
         }
@@ -303,31 +345,7 @@
 
                             if (d.properties.datuak2.errefusa) {
 
-                                if (d.properties.datuak2.errefusa <= 100) {
-
-                                    return "#DCDCDC";
-
-                                } else if (d.properties.datuak2.errefusa > 100 && d.properties.datuak2.errefusa <= 150) {
-
-                                    return "#989898";
-
-                                } else if (d.properties.datuak2.errefusa > 150 && d.properties.datuak2.errefusa <= 200) {
-
-                                    return "#747474";
-
-                                } else if (d.properties.datuak2.errefusa > 200 && d.properties.datuak2.errefusa <= 250) {
-
-                                    return "#565656";
-
-                                } else if (d.properties.datuak2.errefusa > 250 && d.properties.datuak2.errefusa <= 300) {
-
-                                    return "#343434";
-
-                                } else if (d.properties.datuak2.errefusa > 300) {
-
-                                    return "#222";
-
-                                }
+                                return eskuratuKolorea(d.properties.datuak2.errefusa);
 
                             } else {
 
