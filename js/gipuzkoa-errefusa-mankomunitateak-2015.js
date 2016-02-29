@@ -1,5 +1,46 @@
 (function() {
 
+    function onMouseOut(d) {
+        $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
+    }
+
+    function onMouseOver(d) {
+        $(".hasierako-mezua").hide();
+
+        // Dagokion mankomunitateari kolorea eman.
+        $("#unitatea_" + d.properties.ud_kodea).css("fill", "#d50000");
+
+        // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
+        // ez badauka ud_iz_e erabili.
+        if (d.properties.iz_euskal) {
+
+            $("#unitatea-izena").text(d.properties.hondakinak);
+
+        }
+
+        if (!d.properties.datuak) {
+
+            $(".datuak-taula").hide();
+
+            $(".daturik-ez").hide();
+
+        } else if(d.properties.datuak.errefusa) {
+
+            $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
+
+            $(".daturik-ez").hide();
+
+            $(".datuak-taula").show();
+
+        } else {
+
+            $(".datuak-taula").hide();
+
+            $(".daturik-ez").show();
+
+        }
+    }
+
     // Zein herrialdetako datuak bistaratu nahi diren hemen zehazten da:
     // Aukerak:
     //		"araba"
@@ -98,7 +139,7 @@
         if (error) {
             return console.error(error);
         }
-        
+
         d3.csv(herrialdeak[hautatutako_herrialdea].datuak2, function(error, datuak2) {
 
             if (error) {
@@ -146,42 +187,13 @@
                         }
                     })
                     .attr("class", "unitateak")
-                    .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
+                    .attr("id", function(d) { return "unitatea_" + d.properties.ud_kodea; })
                     .attr("d", path)
                     .on("mouseover", function(d) {
-
-                        $(".hasierako-mezua").hide();
-
-                        // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
-                        // ez badauka ud_iz_e erabili.
-                        if (d.properties.iz_euskal) {
-
-                            $("#unitatea-izena").text(d.properties.hondakinak);
-
-                        }
-
-                        if (!d.properties.datuak) {
-
-                            $(".datuak-taula").hide();
-
-                            $(".daturik-ez").hide();
-
-                        } else if(d.properties.datuak.errefusa) {
-
-                            $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
-
-                            $(".daturik-ez").hide();
-
-                            $(".datuak-taula").show();
-
-                        } else {
-
-                            $(".datuak-taula").hide();
-
-                            $(".daturik-ez").show();
-
-                        }
-
+                        onMouseOver(d);
+                    })
+                    .on("mouseout", function(d) {
+                        onMouseOut(d);
                     });
 
                 // Eskualdeen arteko mugak (a !== b)
@@ -260,6 +272,12 @@
                         // Daturik ez badago...
                         return "#ffffff";
 
+                    })
+                    .on("mouseover", function(d) {
+                        onMouseOver(d);
+                    })
+                    .on("mouseout", function(d) {
+                        onMouseOut(d);
                     });
             });
 
