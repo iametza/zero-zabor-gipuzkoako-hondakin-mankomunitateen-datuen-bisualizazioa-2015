@@ -1,5 +1,34 @@
 (function() {
 
+    function eskuratuKolorea(ehunekoa) {
+
+        if (ehunekoa <= 40) {
+
+            return "#C7FDB5";
+
+        } else if (ehunekoa > 40 && ehunekoa <= 50) {
+
+            return "#A4FBA6";
+
+        } else if (ehunekoa > 50 && ehunekoa <= 60) {
+
+            return "#4AE54A";
+
+        } else if (ehunekoa > 60 && ehunekoa <= 70) {
+
+            return "#30CB00";
+
+        } else if (ehunekoa > 70 && ehunekoa <= 80) {
+
+            return "#0F9200";
+
+        } else if (ehunekoa > 80) {
+
+            return "#006203";
+
+        }
+    }
+
     // Zein herrialdetako datuak bistaratu nahi diren hemen zehazten da:
     // Aukerak:
     //		"araba"
@@ -11,7 +40,8 @@
     var herrialdeak = {
         "gipuzkoa": {
             kodea: 20,
-            datuak: "datuak/gipuzkoa-birziklapena-mankomunitateak-2015.csv",
+            datuak1: "datuak/gipuzkoa-birziklapena-mankomunitateak-2014.csv",
+            datuak2: "datuak/gipuzkoa-birziklapena-mankomunitateak-2015.csv",
             json_izena: "hondakin-mankomunitateak-gipuzkoa",
             topoJSON: "topoJSON/hondakin-mankomunitateak-gipuzkoa.json",
             proiekzioa: {
@@ -70,7 +100,7 @@
             altuera: 650,
             zabalera: 680
         }
-    }
+    };
 
     // Maparen svg elementuaren neurriak.
     var width = herrialdeak[hautatutako_herrialdea].zabalera,
@@ -91,138 +121,202 @@
         .attr("width", width)
         .attr("height", height);
 
+    /*
+     * Zutabeei kolore desberdinak emateko arazoak izan ditut.
+     * Zutabe-talde berean jarriz gero guztiei kolore bera eman behar nien.
+     * Zutabe-talde desberdinetan jarriz gero berriz:
+     *      * zutabeak elkarren jarraian itsatsita agertzen ziren,
+     *        baina CSS bidez lortu dut zutabeen artean tarte pixkat ematea.
+     *      * x ardatzaren etiketak ezin erabili. Eskuz gehitu behar izan ditut label-ak erabiliz.
+     *      * ...
+     *
+     */
+    var grafikoa = c3.generate({
+        bindto: '#grafikoa',
+        size: {
+            height: 200,
+            width: 100
+        },
+        data: {
+            columns: [
+                ["2014", 0],
+                ["2015", 0]
+            ],
+            type: 'bar',
+            labels: true,
+        },
+        bar: {
+            width: {
+                ratio: 1
+            }
+        },
+        legend: {
+            show: false
+        },
+        tooltip: {
+            show: false
+        },
+        interaction: {
+            enabled: false
+        },
+        axis: {
+            x: {
+                show: false
+            },
+            y: {
+                max: 78,   // Debagoiena 2015. Zuzenean jarri ordez hobe litzateke datuetaik ateratzea.
+                show: false
+            }
+        }
+    });
+
     // Hautatutako herrialdeko datuak irakurri.
-    d3.csv(herrialdeak[hautatutako_herrialdea].datuak, function(error, datuak) {
+    d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
 
         if (error) {
             return console.error(error);
         }
 
-        // Hautatutako herrialdearen datu geografikoak irakurri dagokion topoJSONetik.
-        d3.json(herrialdeak[hautatutako_herrialdea].topoJSON, function(error, eh) {
+        d3.csv(herrialdeak[hautatutako_herrialdea].datuak2, function(error, datuak2) {
 
             if (error) {
                 return console.error(error);
             }
 
-            // Emaitzak eta topoJSON-a bateratzeko ideia hemendik hartu dut, behar bada badago modu hobe bat.
-            // http://stackoverflow.com/questions/22994316/how-to-reference-csv-alongside-geojson-for-d3-rollover
+            // Hautatutako herrialdearen datu geografikoak irakurri dagokion topoJSONetik.
+            d3.json(herrialdeak[hautatutako_herrialdea].topoJSON, function(error, eh) {
 
-            // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
-            // d: Emaitzen arrayko udalerri bakoitzaren propietateak biltzen dituen objektua.
-            // i: indizea
-            datuak.forEach(function(d, i) {
+                if (error) {
+                    return console.error(error);
+                }
 
-                // e: Datu geografikoetako mankomunitateen propietateak
-                // j: indizea
-                topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
+                // Emaitzak eta topoJSON-a bateratzeko ideia hemendik hartu dut, behar bada badago modu hobe bat.
+                // http://stackoverflow.com/questions/22994316/how-to-reference-csv-alongside-geojson-for-d3-rollover
 
-                    if (d.mankomunitatea === e.properties.hondakinak) {
-                        e.properties.datuak = d;
-                    }
+                // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
+                // d: Emaitzen arrayko udalerri bakoitzaren propietateak biltzen dituen objektua.
+                // i: indizea
+                datuak1.forEach(function(d, i) {
+
+                    // e: Datu geografikoetako mankomunitateen propietateak
+                    // j: indizea
+                    topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
+
+                        if (d.mankomunitatea === e.properties.hondakinak) {
+                            e.properties.datuak1 = d;
+                        }
+
+                    });
 
                 });
 
-            });
+                // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
+                // d: Emaitzen arrayko udalerri bakoitzaren propietateak biltzen dituen objektua.
+                // i: indizea
+                datuak2.forEach(function(d, i) {
 
-            // Mankomunitate guztiak.
-            svg.selectAll(".unitateak")
-                .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
-                .enter().append("path")
-                .attr("fill", function(d) {
+                    // e: Datu geografikoetako mankomunitateen propietateak
+                    // j: indizea
+                    topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
 
-                    if (d.properties.datuak) {
+                        if (d.mankomunitatea === e.properties.hondakinak) {
+                            e.properties.datuak2 = d;
+                        }
 
-                        if (d.properties.datuak.ehunekoa) {
+                    });
 
-                            if (d.properties.datuak.ehunekoa <= 40) {
+                });
 
-                                return "#C7FDB5";
+                // Mankomunitate guztiak.
+                svg.selectAll(".unitateak")
+                    .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
+                    .enter().append("path")
+                    .attr("fill", function(d) {
 
-                            } else if (d.properties.datuak.ehunekoa > 40 && d.properties.datuak.ehunekoa <= 50) {
+                        if (d.properties.datuak2) {
 
-                                return "#A4FBA6";
+                            if (d.properties.datuak2.ehunekoa) {
 
-                            } else if (d.properties.datuak.ehunekoa > 50 && d.properties.datuak.ehunekoa <= 60) {
+                                return eskuratuKolorea(d.properties.datuak2.ehunekoa);
 
-                                return "#4AE54A";
+                            } else {
 
-                            } else if (d.properties.datuak.ehunekoa > 60 && d.properties.datuak.ehunekoa <= 70) {
-
-                                return "#30CB00";
-
-                            } else if (d.properties.datuak.ehunekoa > 70 && d.properties.datuak.ehunekoa <= 80) {
-
-                                return "#0F9200";
-
-                            } else if (d.properties.datuak.ehunekoa > 80) {
-
-                                return "#006203";
+                                return "#FCDC72";
 
                             }
 
-                        } else {
+                        }
 
-                            return "#FCDC72";
+                        // Daturik ez badago...
+                        return "#ffffff";
+
+                    })
+                    .attr("class", "unitateak")
+                    .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
+                    .attr("d", path)
+                    .on("mouseover", function(d) {
+
+                        $(".hasierako-mezua").hide();
+
+                        // Grafikoa eguneratu
+                        grafikoa.load({
+                            columns: [
+                                ["2014", d.properties.datuak1.ehunekoa],
+                                ["2015", d.properties.datuak2.ehunekoa]
+                            ]
+                        });
+
+                        // Barrei dagokien kolorea eman.
+                        grafikoa.data.colors({
+                            "2014": eskuratuKolorea(d.properties.datuak1.ehunekoa),
+                            "2015": eskuratuKolorea(d.properties.datuak2.ehunekoa)
+                        });
+
+                        // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
+                        // ez badauka ud_iz_e erabili.
+                        if (d.properties.hondakinak) {
+
+                            $("#unitatea-izena").text(d.properties.hondakinak);
 
                         }
 
-                    }
+                        if (!d.properties.datuak2) {
 
-                    // Daturik ez badago...
-                    return "#ffffff";
+                            $(".datuak-taula").hide();
 
-                })
-                .attr("class", "unitateak")
-                .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
-                .attr("d", path)
-                .on("mouseover", function(d) {
+                            $(".daturik-ez").hide();
 
-                    $(".hasierako-mezua").hide();
+                        } else if(d.properties.datuak2.ehunekoa) {
 
-                    // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
-                    // ez badauka ud_iz_e erabili.
-                    if (d.properties.hondakinak) {
+                            $(".datuak-taula .birziklapen-tasa").text("%" + d.properties.datuak2.ehunekoa);
 
-                        $("#unitatea-izena").text(d.properties.hondakinak);
+                            $(".daturik-ez").hide();
 
-                    }
+                            $(".datuak-taula").show();
 
-                    if (!d.properties.datuak) {
+                        } else {
 
-                        $(".datuak-taula").hide();
+                            $(".datuak-taula").hide();
 
-                        $(".daturik-ez").hide();
+                            $(".daturik-ez").show();
 
-                    } else if(d.properties.datuak.ehunekoa) {
+                        }
 
-                        $(".datuak-taula .birziklapen-tasa").text("%" + d.properties.datuak.ehunekoa);
+                    });
 
-                        $(".daturik-ez").hide();
+                // Eskualdeen arteko mugak (a !== b)
+                svg.append("path")
+                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
+                    .attr("d", path)
+                    .attr("class", "eskualde-mugak");
 
-                        $(".datuak-taula").show();
+                // Kanpo-mugak (a === b)
+                svg.append("path")
+                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a === b; }))
+                    .attr("d", path)
+                    .attr("class", "kanpo-mugak");
 
-                    } else {
-
-                        $(".datuak-taula").hide();
-
-                        $(".daturik-ez").show();
-
-                    }
-
-                });
-
-            // Eskualdeen arteko mugak (a !== b)
-            svg.append("path")
-                .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
-                .attr("d", path)
-                .attr("class", "eskualde-mugak");
-
-            // Kanpo-mugak (a === b)
-            svg.append("path")
-                .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a === b; }))
-                .attr("d", path)
-                .attr("class", "kanpo-mugak");
+            });
 
         });
 
