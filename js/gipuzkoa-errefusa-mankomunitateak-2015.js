@@ -1,7 +1,7 @@
 (function() {
 
     function onMouseOut(d) {
-        if (d.properties.datuak.errefusa) {
+        if (d.properties.datuak2.errefusa) {
             $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
         } else {
             $("#unitatea_" + d.properties.ud_kodea).css("fill", "#FCDC72");
@@ -14,6 +14,12 @@
         // Dagokion mankomunitateari kolorea eman.
         $("#unitatea_" + d.properties.ud_kodea).css("fill", "#d50000");
 
+        // Grafikoa eguneratu
+        grafikoa.load({
+            columns: [
+                ['errefusa_guztira', d.properties.datuak1.errefusa, d.properties.datuak2.errefusa]
+            ]
+        });
         // Elementu geografiko guztiek ez daukate iz_euskal propietatea,
         // ez badauka ud_iz_e erabili.
         if (d.properties.iz_euskal) {
@@ -22,16 +28,16 @@
 
         }
 
-        if (!d.properties.datuak) {
+        if (!d.properties.datuak2) {
 
             $(".datuak-taula").hide();
 
             $(".daturik-ez").hide();
 
-        } else if(d.properties.datuak.errefusa) {
+        } else if(d.properties.datuak2.errefusa) {
 
-            $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak.errefusa);
-            $(".datuak-taula .errefusaren-ehunekoa").text("%" + d.properties.datuak.errefusaren_ehunekoa);
+            $(".datuak-taula .birziklapen-tasa").text(d.properties.datuak2.errefusa);
+            $(".datuak-taula .errefusaren-ehunekoa").text("%" + d.properties.datuak2.errefusaren_ehunekoa);
 
             $(".daturik-ez").hide();
 
@@ -140,7 +146,7 @@
 
     var errefusa_guztira = 0;
 
-    var chart = c3.generate({
+    var grafikoa = c3.generate({
         bindto: '#grafikoa',
         size: {
             height: 200,
@@ -151,7 +157,7 @@
             y: "errefusa_guztira",
             columns: [
                 ["urtea", "2014", "2015"],
-                ["errefusa_guztira", 30, 200]
+                ["errefusa_guztira", 0, 0]
             ],
             type: 'bar'
         },
@@ -165,6 +171,7 @@
         },
         axis: {
             y: {
+                max: 353,   // Txingudi 2014
                 show: false
             }
         }
@@ -202,6 +209,23 @@
                 // 2014ko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
                 // d: Emaitzen arrayko mankomunitate bakoitzaren propietateak biltzen dituen objektua.
                 // i: indizea
+                datuak1.forEach(function(d, i) {
+
+                    // e: Datu geografikoetako mankomunitatearen propietateak
+                    // j: indizea
+                    topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
+
+                        if (d.mankomunitatea === e.properties.hondakinak) {
+                            e.properties.datuak1 = d;
+                        }
+
+                    });
+
+                });
+
+                // 2015eko mankomunitate bakoitzeko birziklapen datuak dagokion mapako elementuarekin lotu.
+                // d: Emaitzen arrayko mankomunitate bakoitzaren propietateak biltzen dituen objektua.
+                // i: indizea
                 datuak2.forEach(function(d, i) {
 
                     // e: Datu geografikoetako mankomunitatearen propietateak
@@ -209,8 +233,8 @@
                     topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features.forEach(function(e, j) {
 
                         if (d.mankomunitatea === e.properties.hondakinak) {
-                            e.properties.datuak = d;
-                            e.properties.datuak.errefusaren_ehunekoa = (100 * d.errefusa_guztira / errefusa_guztira).toFixed(1);
+                            e.properties.datuak2 = d;
+                            e.properties.datuak2.errefusaren_ehunekoa = (100 * d.errefusa_guztira / errefusa_guztira).toFixed(1);
                         }
 
                     });
@@ -222,8 +246,8 @@
                     .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
                     .enter().append("path")
                     .attr("fill", function(d) {
-                        if (d.properties.datuak) {
-                            if (!d.properties.datuak.errefusa) {
+                        if (d.properties.datuak2) {
+                            if (!d.properties.datuak2.errefusa) {
                                 return "#FCDC72";
                             } else {
                                 return "#ffffff";
@@ -256,7 +280,7 @@
                     .domain([0,
                             d3.max(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features,
                                    function(d) {
-                                       return d.properties.datuak.errefusa_guztira;
+                                       return d.properties.datuak2.errefusa_guztira;
                                    }
                             )
                     ])
@@ -271,35 +295,35 @@
                         return "translate(" + path.centroid(d) + ")";
                     })
                     .attr("r", function(d) {
-                        return radius(d.properties.datuak.errefusa_guztira);
+                        return radius(d.properties.datuak2.errefusa_guztira);
                     })
                     .attr("fill", function(d) {
 
-                        if (d.properties.datuak) {
+                        if (d.properties.datuak2) {
 
-                            if (d.properties.datuak.errefusa) {
+                            if (d.properties.datuak2.errefusa) {
 
-                                if (d.properties.datuak.errefusa <= 100) {
+                                if (d.properties.datuak2.errefusa <= 100) {
 
                                     return "#DCDCDC";
 
-                                } else if (d.properties.datuak.errefusa > 100 && d.properties.datuak.errefusa <= 150) {
+                                } else if (d.properties.datuak2.errefusa > 100 && d.properties.datuak2.errefusa <= 150) {
 
                                     return "#989898";
 
-                                } else if (d.properties.datuak.errefusa > 150 && d.properties.datuak.errefusa <= 200) {
+                                } else if (d.properties.datuak2.errefusa > 150 && d.properties.datuak2.errefusa <= 200) {
 
                                     return "#747474";
 
-                                } else if (d.properties.datuak.errefusa > 200 && d.properties.datuak.errefusa <= 250) {
+                                } else if (d.properties.datuak2.errefusa > 200 && d.properties.datuak2.errefusa <= 250) {
 
                                     return "#565656";
 
-                                } else if (d.properties.datuak.errefusa > 250 && d.properties.datuak.errefusa <= 300) {
+                                } else if (d.properties.datuak2.errefusa > 250 && d.properties.datuak2.errefusa <= 300) {
 
                                     return "#343434";
 
-                                } else if (d.properties.datuak.errefusa > 300) {
+                                } else if (d.properties.datuak2.errefusa > 300) {
 
                                     return "#222";
 
