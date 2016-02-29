@@ -117,7 +117,7 @@
             altuera: 650,
             zabalera: 680
         }
-    }
+    };
 
     // Maparen svg elementuaren neurriak.
     var width = herrialdeak[hautatutako_herrialdea].zabalera,
@@ -139,6 +139,36 @@
         .attr("height", height);
 
     var errefusa_guztira = 0;
+
+    var chart = c3.generate({
+        bindto: '#grafikoa',
+        size: {
+            height: 200,
+            width: 150
+        },
+        data: {
+            x: "urtea",
+            y: "errefusa_guztira",
+            columns: [
+                ["urtea", "2014", "2015"],
+                ["errefusa_guztira", 30, 200]
+            ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.9
+            }
+        },
+        legend: {
+            show: false
+        },
+        axis: {
+            y: {
+                show: false
+            }
+        }
+    });
 
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {

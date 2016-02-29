@@ -105,3 +105,8 @@ body {
 	width: 100px;
     margin-left: 15px;
 }
+#grafikoa {
+    position: absolute !important;
+    top: 200px;
+    right: 10px;
+}
