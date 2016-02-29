@@ -1,0 +1,84 @@
+.unitateak:hover {
+    fill: #d50000;
+}
+
+.eskualde-mugak {
+    fill: none;
+    stroke: #777;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+}
+
+.kanpo-mugak {
+    fill: none;
+    stroke: #777;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
+
+#kontainerra {
+    margin: 0 auto 0 auto;
+    width: 680px;
+    position: relative;
+    height: 580px;
+    font-family: Arial,Helvetica,sans-serif !important;
+    font-size: 16px;
+}
+
+#mapa {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hasierako-mezua {
+    left: 95px;
+    margin-top: 10px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+}
+
+.daturik-ez {
+    display: none; /* Hasieran ezkutuan */
+    text-align: center;
+}
+
+.datuak {
+    left: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    top: 0;
+    width: 350px;
+}
+
+#unitatea-izena {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.datuak-taula {
+    display: none;  /* Hasieran ezkutuan */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.datuak-taula .eskuinekoa {
+    text-align: right;
+}
+
+.legenda {
+    left: 500px;
+    position: absolute;
+    top: 340px;
+}
+
+.legenda .kolorea {
+    display: inline-block;
+    height: 15px;
+    margin-right: 5px;
+    width: 15px;
+}
