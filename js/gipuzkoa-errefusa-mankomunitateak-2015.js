@@ -94,7 +94,7 @@
 
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
-        
+
         d3.csv(herrialdeak[hautatutako_herrialdea].datuak2, function(error, datuak2) {
 
             if (error) {
@@ -128,7 +128,7 @@
 
                 });
 
-                // Udalerri guztiak.
+                // Unitate guztiak.
                 svg.selectAll(".unitateak")
                     .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
                     .enter().append("path")
@@ -227,6 +227,13 @@
                     .attr("d", path)
                     .attr("class", "kanpo-mugak");
 
+                svg.append("g")
+                    .attr("class", "bubble")
+                    .selectAll("circle")
+                    .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
+                    .enter().append("circle")
+                    .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+                    .attr("r", 1.5);
             });
 
         });
