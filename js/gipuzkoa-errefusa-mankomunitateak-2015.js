@@ -227,13 +227,30 @@
                     .attr("d", path)
                     .attr("class", "kanpo-mugak");
 
+                console.log(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features);
+                var radius = d3.scale.sqrt()
+                    .domain([0,
+                            d3.max(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features,
+                                   function(d) {
+                                       console.log(d.properties.hondakinak);
+                                       console.log(d.properties.datuak.errefusa_guztira);
+                                       return d.properties.datuak.errefusa_guztira;
+                                   }
+                            )
+                    ])
+                    .range([0, 25]);
+
                 svg.append("g")
                     .attr("class", "bubble")
                     .selectAll("circle")
                     .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
                     .enter().append("circle")
-                    .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-                    .attr("r", 1.5);
+                    .attr("transform", function(d) {
+                        return "translate(" + path.centroid(d) + ")";
+                    })
+                    .attr("r", function(d) {
+                        return radius(d.properties.datuak.errefusa_guztira);
+                    });
             });
 
         });
