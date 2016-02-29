@@ -120,6 +120,9 @@ body {
     stroke: #fff !important;
     stroke-width: 1 !important;
 }
+.c3-text {
+    fill: #000 !important;
+}
 #urtea1 {
     position: absolute;
     top: 369px;
