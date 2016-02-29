@@ -185,11 +185,21 @@
 
     var errefusa_guztira = 0;
 
+    /*
+     * Zutabeei kolore desberdinak emateko arazoak izan ditut.
+     * Zutabe-talde berean jarriz gero guztiei kolore bera eman behar nien.
+     * Zutabe-talde desberdinetan jarriz gero berriz:
+     *      * zutabeak elkarren jarraian itsatsita agertzen ziren,
+     *        baina CSS bidez lortu dut zutabeen artean tarte pixkat ematea.
+     *      * x ardatzaren etiketak ezin erabili. Eskuz gehitu behar izan ditut label-ak erabiliz.
+     *      * ...
+     *
+     */
     var grafikoa = c3.generate({
         bindto: '#grafikoa',
         size: {
             height: 200,
-            width: 150
+            width: 100
         },
         data: {
             columns: [
@@ -198,6 +208,11 @@
             ],
             type: 'bar',
             labels: true,
+        },
+        bar: {
+            width: {
+                ratio: 1
+            }
         },
         legend: {
             show: false

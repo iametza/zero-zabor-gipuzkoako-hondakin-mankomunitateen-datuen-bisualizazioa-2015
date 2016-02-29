@@ -107,6 +107,28 @@ body {
 }
 #grafikoa {
     position: absolute !important;
-    top: 200px;
+    top: 175px;
     right: 10px;
+}
+/*
+ * Zutabeei kolore desberdinak emateko arazoak izan ditut.
+ * Zutabe-talde berean jarriz gero guztiei kolore bera eman behar nien.
+ * Zutabe-talde desberdinetan jarriz gero berriz zutabeak elkarren jarraian itsatsita agertzen ziren.
+ * Zutabeen artean tarte pixkat emateko erabiltzen dut hau.
+ */
+.c3-bar {
+    stroke: #fff !important;
+    stroke-width: 1 !important;
+}
+#urtea1 {
+    position: absolute;
+    top: 369px;
+    right: 70px;
+    font-size: 12px;
+}
+#urtea2 {
+    position: absolute;
+    top: 369px;
+    right: 22px;
+    font-size: 12px;
 }
