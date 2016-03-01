@@ -132,10 +132,11 @@ body {
 	color: #333;
 	font-family: Arial,Helvetica,sans-serif;
 	font-size: 12px;
-	left: 8px;
+	left: 0px;
 	position: absolute;
 	top: 510px;
 	width: 250px;
+    text-align: center;
 }
 
 #mapa-argia-logoa {
