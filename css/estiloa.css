@@ -19,6 +19,9 @@ body {
 .izenburua.birziklapen-tasa {
     left: 70px;
 }
+.izenburua.errefusa {
+    left: 105px;
+}
 .stripe {
     mask: url(#mask-stripe);
 }
@@ -111,7 +114,10 @@ body {
     top: 495px;
     font-size: 14px;
 }
-
+.legenda.errefusa {
+    top: 472px;
+    left: 250px;
+}
 .legenda.birziklapen-tasa {
     left: 320px;
 }
