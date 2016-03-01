@@ -161,6 +161,9 @@
                 }
             }
         },
+        transition: {
+            duration: 100
+        },
         bar: {
             width: {
                 ratio: 1

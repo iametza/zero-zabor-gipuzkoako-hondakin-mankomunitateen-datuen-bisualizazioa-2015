@@ -231,6 +231,9 @@
             height: 200,
             width: 130
         },
+        transition: {
+            duration: 100
+        },
         data: {
             columns: [
                 ["2014", 0],
