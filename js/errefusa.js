@@ -51,6 +51,14 @@
 
     function onMouseOver(d) {
 
+        if (d.properties.hondakinak === "Debagoiena" || d.properties.hondakinak === "Debabarrena") {
+            tip.direction("e");
+        } else if (d.properties.hondakinak === "San Marko" || d.properties.hondakinak === "Txingudi") {
+            tip.direction("w");
+        } else {
+            tip.direction("n");
+        }
+
         tip.html(function(d) {
 
             var katea = "<div class='mankomunitatea'>" + d.properties.hondakinak + "</div>";
@@ -269,7 +277,7 @@
         .attr('class', 'd3-tip')
         .html("")
         .direction('s')
-        .offset([0, 40])
+        .offset([0, 0])
 
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {

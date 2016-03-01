@@ -17,7 +17,7 @@
   border: 1px solid #ccc;
   border-radius: 2px;
   pointer-events: none;
-  width: 240px;
+  width: 300px;
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -50,12 +50,19 @@
 }
 
 /* Eastward tooltips */
+.d3-tip.e:before {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -20px;
+}
 .d3-tip.e:after {
   content: "\25C0";
   margin: -4px 0 0 0;
   top: 50%;
-  left: -8px;
+  left: -18px;
 }
+/* Southward tooltips */
 .d3-tip.s:before {
   content: "\25B2";
   margin: 0 0 8px 0;
@@ -63,7 +70,6 @@
   left: 0;
   text-align: center;
 }
-/* Southward tooltips */
 .d3-tip.s:after {
   content: "\25B2";
   margin: 0 0 6px 0;
@@ -73,6 +79,12 @@
 }
 
 /* Westward tooltips */
+.d3-tip.w:before {
+  content: "\25B6";
+  margin: -4px 0 0 1px;
+  top: 50%;
+  left: 100%;
+}
 .d3-tip.w:after {
   content: "\25B6";
   margin: -4px 0 0 -1px;
