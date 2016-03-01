@@ -150,7 +150,16 @@
                 ["2015", 0]
             ],
             type: 'bar',
-            labels: true,
+            labels: {
+                format: {
+                    "2014": function (v, id, i, j) {
+                        return ("%" + v).replace(/\./g, ',');
+                    },
+                    "2015": function (v, id, i, j) {
+                        return ("%" + v).replace(/\./g, ',');
+                    },
+                }
+            }
         },
         bar: {
             width: {
