@@ -123,8 +123,8 @@
     var path = d3.geo.path()
         .projection(projection);
 
-    // Maparen svg elementua DOMera gehitu eta neurriak ezarri.
-    var svg = d3.select("#mapa").append("svg")
+    // Maparen svg elementua eskuratu eta neurriak ezarri.
+    var svg = d3.select("#mapa svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -248,7 +248,7 @@
 
                             } else {
 
-                                return "#FCDC72";
+                                return "url('#pattern-stripe')";;
 
                             }
 
@@ -258,7 +258,7 @@
                         return "#ffffff";
 
                     })
-                    .attr("class", "unitateak")
+                    .attr("class", "unitateak birziklapen-tasa")
                     .attr("id", function(d) { return "unitatea_" + d.properties.hondakinak; })
                     .attr("d", path)
                     .on("mouseover", function(d) {

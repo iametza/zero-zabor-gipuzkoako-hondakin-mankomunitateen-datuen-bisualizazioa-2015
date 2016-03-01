@@ -20,7 +20,21 @@
 					Datu geografikoak: <a href="http://www.euskalgeo.net/">Euskalgeo</a>n oinarrituta
 				</div>
 			</div>
-			<div id="mapa"></div>
+			<div id="mapa">
+				<svg>
+					<defs>
+				        <pattern id="pattern-stripe"
+				          	width="4" height="4"
+				          	patternUnits="userSpaceOnUse"
+				          	patternTransform="rotate(45)">
+				          	<rect width="1" height="4" transform="translate(0,0)" fill="#999"></rect>
+				        </pattern>
+				        <mask id="mask-stripe">
+				          	<rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+				        </mask>
+					</defs>
+				</svg>
+			</div>
 			<div id="grafikoa"></div>
 			<label id="urtea1">2014</label>
 			<label id="urtea2">2015</label>

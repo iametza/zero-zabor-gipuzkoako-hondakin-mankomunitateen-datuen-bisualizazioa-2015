@@ -5,6 +5,13 @@ a {
 body {
     background-color: #fff;
 }
+.unitateak.birziklapen-tasa:hover {
+    fill: #333;
+}
+
+.stripe {
+    mask: url(#mask-stripe);
+}
 
 .eskualde-mugak {
     fill: none;
@@ -49,6 +56,9 @@ body {
     text-align: center;
 }
 
+.daturik-ez-betegarria {
+    fill: url("#pattern-stripe");
+}
 .datuak {
     left: 65px;
     margin-left: auto;

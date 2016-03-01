@@ -42,7 +42,7 @@
         if (d.properties.datuak2.errefusa) {
             $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
         } else {
-            $("#unitatea_" + d.properties.ud_kodea).css("fill", "#FCDC72");
+            $("#unitatea_" + d.properties.ud_kodea).css("fill", "url('#pattern-stripe')");
         }
     }
 
@@ -190,8 +190,8 @@
     var path = d3.geo.path()
         .projection(projection);
 
-    // Maparen svg elementua DOMera gehitu eta neurriak ezarri.
-    var svg = d3.select("#mapa").append("svg")
+    // Maparen svg elementua eskuratu eta neurriak ezarri.
+    var svg = d3.select("#mapa svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -315,12 +315,10 @@
                     .data(topojson.feature(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena]).features)
                     .enter().append("path")
                     .attr("fill", function(d) {
-                        if (d.properties.datuak2) {
-                            if (!d.properties.datuak2.errefusa) {
-                                return "#FCDC72";
-                            } else {
-                                return "#ffffff";
-                            }
+                        if (d.properties.datuak2.errefusa) {
+                            return "#ffffff";
+                        } else {
+                            return "url('#pattern-stripe')";
                         }
                     })
                     .attr("class", "unitateak")
