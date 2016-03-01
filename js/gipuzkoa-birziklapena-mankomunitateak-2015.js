@@ -1,5 +1,12 @@
 (function() {
 
+    // http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
+    d3.selection.prototype.moveToFront = function() {
+        return this.each(function(){
+            this.parentNode.appendChild(this);
+        });
+    };
+
     function eskuratuKolorea(ehunekoa) {
 
         if (ehunekoa <= 40) {
@@ -309,17 +316,23 @@
 
                     });
 
-                // Eskualdeen arteko mugak (a !== b)
-                svg.append("path")
-                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
-                    .attr("d", path)
-                    .attr("class", "eskualde-mugak");
-
                 // Kanpo-mugak (a === b)
                 svg.append("path")
                     .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a === b; }))
                     .attr("d", path)
                     .attr("class", "kanpo-mugak");
+
+                // Unitateak aurreko planora ekarri.
+                svg.selectAll(".unitateak").each(function() {
+                    var sel = d3.select(this);
+                    sel.moveToFront();
+                });
+
+                // Eskualdeen arteko mugak (a !== b)
+                svg.append("path")
+                    .datum(topojson.mesh(eh, eh.objects[herrialdeak[hautatutako_herrialdea].json_izena], function(a, b) { return a !== b; }))
+                    .attr("d", path)
+                    .attr("class", "eskualde-mugak");
 
             });
 
