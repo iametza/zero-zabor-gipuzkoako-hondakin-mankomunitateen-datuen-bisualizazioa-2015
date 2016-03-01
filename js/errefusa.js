@@ -39,6 +39,9 @@
     }
 
     function onMouseOut(d) {
+
+        tip.hide();
+
         if (d.properties.datuak2.errefusa) {
             $("#unitatea_" + d.properties.ud_kodea).css("fill", "#ffffff");
         } else {
@@ -47,6 +50,14 @@
     }
 
     function onMouseOver(d) {
+
+        tip.html(function(d) {
+            console.log(d.properties);
+            return d.properties.hondakinak + "<br />" + "2015ean Gipuzkoa osoko errefusaren %" + d.properties.datuak2.errefusaren_ehunekoa;
+        });
+
+        tip.show(d);
+
         $(".hasierako-mezua").hide();
 
         // Grafikoa bistaratu
@@ -246,6 +257,12 @@
         }
     });
 
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html("Kaixo")
+        .direction('n')
+        .offset([0, 10])
+
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
 
@@ -329,7 +346,8 @@
                     })
                     .on("mouseout", function(d) {
                         onMouseOut(d);
-                    });
+                    })
+                    .call(tip);
 
                 // Kanpo-mugak (a === b)
                 svg.append("path")

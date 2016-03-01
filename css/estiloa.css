@@ -185,3 +185,9 @@ body {
     display: none; /* Hasieran ezkutuan */
     font-size: 14px;
 }
+d3-tip text {
+    fill: #fff;
+    font-size: 12px;
+    stroke: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
