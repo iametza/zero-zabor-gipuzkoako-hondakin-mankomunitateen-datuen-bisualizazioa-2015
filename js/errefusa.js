@@ -210,7 +210,16 @@
                 ["2015", 0]
             ],
             type: 'bar',
-            labels: true,
+            labels: {
+                format: {
+                    "2014": function (v, id, i, j) {
+                        return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    },
+                    "2015": function (v, id, i, j) {
+                        return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    },
+                }
+            }
         },
         bar: {
             width: {
