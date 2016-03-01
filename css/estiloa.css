@@ -116,7 +116,7 @@ body {
 }
 .legenda.errefusa {
     top: 472px;
-    left: 250px;
+    left: 280px;
 }
 .legenda.birziklapen-tasa {
     left: 320px;
@@ -126,6 +126,9 @@ body {
     height: 15px;
     margin: 0px 5px 0px 15px;
     width: 15px;
+}
+.legenda.errefusa .tartea {
+    width: 150px;
 }
 
 #kredituak {
