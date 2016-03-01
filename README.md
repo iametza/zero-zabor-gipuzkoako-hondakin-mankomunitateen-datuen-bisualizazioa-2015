@@ -7,7 +7,7 @@ http://www.argia.eus/blogak/zero-zabor/2016/03/01/gipuzkoa-2015-estatistikak-esk
 
 ## Txertatu zure webgunean
 
-Errefusa Gipuzkoan 2015ean
+###Errefusa Gipuzkoan 2015ean
 
 ```
 <iframe src=”http://www.argia.eus/interaktiboak/2015-zero-zabor-gipuzkoako-hondakin-mankomunitateen-datuak/errefusa.html” width=”680″ height=”590″ frameborder=”0″ scrolling=”no” allowfullscreen=”allowfullscreen”></iframe>
@@ -17,7 +17,7 @@ Errefusa Gipuzkoan 2015ean
   <img src="pantaila-argazkiak/errefusa-gipuzkoan-2015.png?raw=true" alt="Errefusa Gipuzkoan 2015ean bisualizazioaren pantaila-argazkia"/>
 </p>
 
-Errefus kiloak pertsonako Gipuzkoan 2015ean
+###Errefus kiloak pertsonako Gipuzkoan 2015ean
 
 ```
 <iframe src=”http://www.argia.eus/interaktiboak/2015-zero-zabor-gipuzkoako-hondakin-mankomunitateen-datuak/errefusa-biztanleko.html” width=”680″ height=”590″ frameborder=”0″ scrolling=”no” allowfullscreen=”allowfullscreen”></iframe>
@@ -27,7 +27,7 @@ Errefus kiloak pertsonako Gipuzkoan 2015ean
   <img src="pantaila-argazkiak/errefus-kiloak-pertsonako-gipuzkoan-2015.png?raw=true" alt="Errefus kiloak pertsonako Gipuzkoan 2015ean bisualizazioaren pantaila-argazkia"/>
 </p>
 
-Birziklapen tasa Gipuzkoan 2015ean
+###Birziklapen tasa Gipuzkoan 2015ean
 
 ```
 <iframe src=”http://www.argia.eus/interaktiboak/2015-zero-zabor-gipuzkoako-hondakin-mankomunitateen-datuak/birziklapen-tasa.html” width=”680″ height=”590″ frameborder=”0″ scrolling=”no” allowfullscreen=”allowfullscreen”></iframe>
