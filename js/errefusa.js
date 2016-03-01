@@ -52,8 +52,15 @@
     function onMouseOver(d) {
 
         tip.html(function(d) {
-            console.log(d.properties);
-            return d.properties.hondakinak + "<br />" + "2015ean Gipuzkoa osoko errefusaren %" + d.properties.datuak2.errefusaren_ehunekoa;
+
+            var katea = "<div class='mankomunitatea'>" + d.properties.hondakinak + "</div>";
+
+            if (!d.properties.datuak2.errefusa) {
+                return katea +
+                       "<div class='info'>Ez dago 2015eko daturik</div>";
+            }
+            return katea +
+                   "<div class='info'>2015ean Gipuzkoa osoko errefusaren %" + d.properties.datuak2.errefusaren_ehunekoa + "</div>";
         });
 
         tip.show(d);

@@ -1,29 +1,49 @@
+.d3-tip:before {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 24px;
+    width: 100%;
+    line-height: 1;
+    color: #ccc;
+    position: absolute;
+    pointer-events: none;
+    border-width: 20px;
+}
+
 .d3-tip {
   line-height: 1;
-  font-weight: bold;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background: #fff;
+  border: 1px solid #ccc;
   border-radius: 2px;
   pointer-events: none;
+  width: 230px;
 }
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
   display: inline;
-  font-size: 10px;
+  font-size: 24px;
   width: 100%;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
+  color: #fff;
   position: absolute;
   pointer-events: none;
 }
 
 /* Northward tooltips */
+.d3-tip.n:before {
+  content: "\25BC";
+  margin: -4px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
 .d3-tip.n:after {
   content: "\25BC";
-  margin: -1px 0 0 0;
+  margin: -6px 0 0 0;
   top: 100%;
   left: 0;
   text-align: center;
@@ -52,4 +72,8 @@
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
+}
+.d3-tip .mankomunitatea {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
