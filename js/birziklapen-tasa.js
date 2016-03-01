@@ -53,10 +53,10 @@
             topoJSON: "topoJSON/hondakin-mankomunitateak-gipuzkoa.json",
             proiekzioa: {
                 erdia: {
-                    lat: -2.165,
+                    lat: -2.065,
                     lng: 43.15
                 },
-                eskala: 43500
+                eskala: 35000
             },
             altuera: 535,
             zabalera: 680
@@ -142,7 +142,7 @@
         bindto: '#grafikoa',
         size: {
             height: 200,
-            width: 100
+            width: 130
         },
         data: {
             columns: [
@@ -294,21 +294,13 @@
 
                         if (!d.properties.datuak2) {
 
-                            $(".datuak-taula").hide();
-
                             $(".daturik-ez").hide();
 
                         } else if(d.properties.datuak2.ehunekoa) {
 
-                            $(".datuak-taula .birziklapen-tasa").text("%" + d.properties.datuak2.ehunekoa);
-
                             $(".daturik-ez").hide();
 
-                            $(".datuak-taula").show();
-
                         } else {
-
-                            $(".datuak-taula").hide();
 
                             $(".daturik-ez").show();
 

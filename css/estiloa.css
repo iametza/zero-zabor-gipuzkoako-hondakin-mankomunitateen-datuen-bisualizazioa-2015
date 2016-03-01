@@ -16,6 +16,9 @@ body {
     font-size: 24px;
     font-weight: bold;
 }
+.izenburua.birziklapen-tasa {
+    left: 70px;
+}
 .stripe {
     mask: url(#mask-stripe);
 }
@@ -109,6 +112,9 @@ body {
     font-size: 14px;
 }
 
+.legenda.birziklapen-tasa {
+    left: 320px;
+}
 .legenda .kolorea {
     display: inline-block;
     height: 15px;
