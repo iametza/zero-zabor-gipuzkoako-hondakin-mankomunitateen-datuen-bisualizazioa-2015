@@ -68,8 +68,8 @@ body {
     display: none; /* Hasieran ezkutuan */
     text-align: center;
     position: absolute;
-    left: 425px;
-    top: 230px;
+    left: 410px;
+    top: 250px;
     width: 300px;
     font-size: 14px;
 }
@@ -92,8 +92,8 @@ body {
     margin-bottom: 10px;
     text-align: center;
     position: absolute;
-    left: 500px;
-    top: 200px;
+    left: 485px;
+    top: 221px;
     width: 150px;
 }
 
@@ -147,8 +147,8 @@ body {
 }
 #grafikoa {
     position: absolute !important;
-    top: 220px;
-    right: 40px;
+    top: 250px;
+    right: 55px;
     display: none; /* Hasieran ezkutuan */
 }
 /*
@@ -167,16 +167,16 @@ body {
 }
 #urtea1 {
     position: absolute;
-    top: 415px;
-    right: 118px;
+    top: 445px;
+    right: 133px;
     font-size: 12px;
     display: none; /* Hasieran ezkutuan */
     font-size: 14px;
 }
 #urtea2 {
     position: absolute;
-    top: 415px;
-    right: 57px;
+    top: 445px;
+    right: 72px;
     font-size: 12px;
     display: none; /* Hasieran ezkutuan */
     font-size: 14px;
