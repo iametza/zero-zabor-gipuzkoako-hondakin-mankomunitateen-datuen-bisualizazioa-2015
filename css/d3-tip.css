@@ -17,7 +17,7 @@
   border: 1px solid #ccc;
   border-radius: 2px;
   pointer-events: none;
-  width: 230px;
+  width: 240px;
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -56,12 +56,18 @@
   top: 50%;
   left: -8px;
 }
-
+.d3-tip.s:before {
+  content: "\25B2";
+  margin: 0 0 8px 0;
+  top: -24px;
+  left: 0;
+  text-align: center;
+}
 /* Southward tooltips */
 .d3-tip.s:after {
   content: "\25B2";
-  margin: 0 0 1px 0;
-  top: -8px;
+  margin: 0 0 6px 0;
+  top: -22px;
   left: 0;
   text-align: center;
 }

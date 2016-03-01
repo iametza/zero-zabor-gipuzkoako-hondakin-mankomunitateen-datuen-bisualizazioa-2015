@@ -60,7 +60,8 @@
                        "<div class='info'>Ez dago 2015eko daturik</div>";
             }
             return katea +
-                   "<div class='info'>2015ean Gipuzkoa osoko errefusaren %" + d.properties.datuak2.errefusaren_ehunekoa + "</div>";
+                   "<div class='info'>2015ean " + d.properties.datuak2.errefusa_guztira + " tona errefus.</div>" +
+                   "<div class='info'>Gipuzkoa osoko errefusaren %" + d.properties.datuak2.errefusaren_ehunekoa + "</div>";
         });
 
         tip.show(d);
@@ -266,9 +267,9 @@
 
     var tip = d3.tip()
         .attr('class', 'd3-tip')
-        .html("Kaixo")
-        .direction('n')
-        .offset([0, 10])
+        .html("")
+        .direction('s')
+        .offset([0, 40])
 
     // Hautatutako herrialdeko datuak irakurri.
     d3.csv(herrialdeak[hautatutako_herrialdea].datuak1, function(error, datuak1) {
