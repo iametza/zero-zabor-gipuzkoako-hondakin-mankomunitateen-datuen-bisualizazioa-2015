@@ -258,6 +258,11 @@
 
                         $(".hasierako-mezua").hide();
 
+                        // Grafikoa bistaratu
+                        $("#grafikoa").show();
+                        $("#urtea1").show();
+                        $("#urtea2").show();
+
                         // Grafikoa eguneratu
                         grafikoa.load({
                             columns: [

@@ -42,6 +42,11 @@
     function onMouseOver(d) {
         $(".hasierako-mezua").hide();
 
+        // Grafikoa bistaratu
+        $("#grafikoa").show();
+        $("#urtea1").show();
+        $("#urtea2").show();
+
         // Dagokion mankomunitateari kolorea eman.
         $("#unitatea_" + d.properties.ud_kodea).css("fill", "#d50000");
 

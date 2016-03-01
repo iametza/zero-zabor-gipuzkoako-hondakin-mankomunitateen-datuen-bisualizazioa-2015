@@ -110,6 +110,7 @@ body {
     position: absolute !important;
     top: 175px;
     right: 10px;
+    display: none; /* Hasieran ezkutuan */
 }
 /*
  * Zutabeei kolore desberdinak emateko arazoak izan ditut.
@@ -129,10 +130,12 @@ body {
     top: 369px;
     right: 70px;
     font-size: 12px;
+    display: none; /* Hasieran ezkutuan */
 }
 #urtea2 {
     position: absolute;
     top: 369px;
     right: 22px;
     font-size: 12px;
+    display: none; /* Hasieran ezkutuan */
 }
