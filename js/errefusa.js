@@ -74,7 +74,13 @@
 
     function onMouseOver(d) {
 
-        if (d.properties.hondakinak === "Debagoiena" || d.properties.hondakinak === "Debabarrena") {
+        if (d.properties.hondakinak === "Debagoiena") {
+            tip.offset([0, 50]);
+        } else {
+            tip.offset([0, 0]);
+        }
+
+        if (d.properties.hondakinak === "Debabarrena") {
             tip.direction("e");
         } else if (d.properties.hondakinak === "San Marko" || d.properties.hondakinak === "Txingudi") {
             tip.direction("w");
