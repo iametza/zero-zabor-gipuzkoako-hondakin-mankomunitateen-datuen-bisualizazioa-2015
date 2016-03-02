@@ -29,7 +29,7 @@
     }
 
     eskalatu();
-    
+
     function eskuratuKolorea(ehunekoa) {
 
         if (ehunekoa <= 40) {
@@ -185,7 +185,7 @@
             }
         },
         transition: {
-            duration: 100
+            duration: 0
         },
         bar: {
             width: {

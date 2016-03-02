@@ -29,7 +29,7 @@
     }
 
     eskalatu();
-    
+
     function eskuratuKolorea(errefusa) {
 
         var kolorea = "";
@@ -255,7 +255,7 @@
             width: 130
         },
         transition: {
-            duration: 100
+            duration: 0
         },
         data: {
             columns: [
