@@ -7,6 +7,29 @@
         });
     };
 
+    function eskalatu() {
+
+        var jatorrizko_zabalera = 680;
+        var zabalera = window.innerWidth;
+        var altuera = window.innerHeight;
+
+        var eskala = 1;
+
+        // Pantailaren zabalera maparena baino txikiagoa bada.
+        if (zabalera < jatorrizko_zabalera) {
+
+            // Eskala kalkulatu.
+            eskala = zabalera / jatorrizko_zabalera - 0.04;
+
+        }
+
+        $("#kontainerra").css("transform-origin", "top left");
+        $("#kontainerra").css("transform", "scale(" + eskala + ")");
+
+    }
+
+    eskalatu();
+
     function eskuratuKolorea(errefusa) {
 
         var kolorea = "";
